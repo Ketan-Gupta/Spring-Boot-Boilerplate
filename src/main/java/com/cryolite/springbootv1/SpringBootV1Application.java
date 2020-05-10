@@ -12,10 +12,13 @@ public class SpringBootV1Application {
 		Parent obj = context.getBean(Parent.class);
 		obj.setIndex(1);
 		System.out.println(obj.getIndex());
+		obj.runner();
 
+		/*
 		Parent obj2 = context.getBean(Parent.class);
 		obj2.setIndex(3);
 		System.out.println(obj.getIndex());
+		 */
 	}
 
 }

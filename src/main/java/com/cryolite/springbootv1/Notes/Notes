@@ -1,9 +1,6 @@
 TODO:
 ---
 
-1. Read on single pattern being used, but when class is beaned twice and set with different properties, it still works. How
-is Spring generating only one object but maintaining different states for the same object.
-
 Spring Boot
 ---
 
@@ -31,3 +28,25 @@ only one object of Parent.class because it follows singleton pattern by default.
 parent object, spring actually returned the same object from the container that it had returned for the first parent object.
 Hence the first and second parent object are actually the same. ( as seen by overriding the value of index from second object to 3,
 but printing the index of first object which has now been set to 3 as well, because they are same object.)
+
+12. If Prototype scope is wanted, then the bean should simply be annotated with additional annotation called @scope("prototype")
+In scope of prototype, spring does not create objects at run method, It will instead create at and when they are needed.
+
+Hence, when a parent bean was requested, spring created a parent object and put it into container after the request,
+and returned it.
+
+When two separate parent objects were requested, spring created two different parent objects after the request, and returned them.
+
+13. In sample use case 2, Injection class has been declared a component with default singleton scope, hence
+as soon as run is called, spring will create an object of run and store it into the container.
+
+14. As soon as Injection object is autowired in parent class, the spring containers will make an object and put it into the container
+if it is scoped as prototype, or the object will already be there in container in case of default singleton scope.
+
+15. After the completion of the above step, the object will be searched from the spring container, picked up and 
+injected into the parent class. i.e dependency injection.
+
+16. The whole searching is done by the class type and not name. The name of the object is always the name of the class but
+with first letter small. If autowiring has to be done by name, @Qualifier can be used to pick the object with the name itself.
+
+17. @Component taken a argument that can change the default name of the object that spring creates.
