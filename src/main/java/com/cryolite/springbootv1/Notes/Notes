@@ -1,0 +1,33 @@
+TODO:
+---
+
+1. Read on single pattern being used, but when class is beaned twice and set with different properties, it still works. How
+is Spring generating only one object but maintaining different states for the same object.
+
+Spring Boot
+---
+
+1. The boilerplate run function in main class returns the ConfigurableApplicationContext.
+2. That context object can be used to procure any beans by simple specifying the classname.
+
+Spring Autowire Concept
+---
+
+1. JVM has a spring container, that consists of objects aka Spring Beans.
+2. When a bean is created, it can be placed under different scopes: singleton or prototype for stand alone projects.
+3. We also have request and session for web based projects.
+4. The run method in main class, when ran, initializes the spring container.
+5. At initialization, spring creates objects of classes and loads them into the container.
+6. However, it will not create objects of all the classes, but instead create objects of only those classes that are annotated
+with @Component i.e officially classified as a spring bean.
+7. The moment getBean is called with Parent.class as the argument, spring will look into the container for Parent type object,
+and if found will return it i.e it will inject the object of Parent into the main class.
+8. Remember even if the bean is not requested, but it is marked as a component, the object will be created as soon as the
+application context is loaded on run method, where spring will start creating and loading objects into the container.
+9. BTW, the default design pattern used is Singleton Pattern.
+10. In our project, if parent is beaned(getBean(Parent.class)) twice, then in that case too, spring at run method will create and load
+only one object of Parent.class because it follows singleton pattern by default.
+11. Use case 1: Two different objects of parent.class were procured, different values were set for both of them. For the second 
+parent object, spring actually returned the same object from the container that it had returned for the first parent object.
+Hence the first and second parent object are actually the same. ( as seen by overriding the value of index from second object to 3,
+but printing the index of first object which has now been set to 3 as well, because they are same object.)
